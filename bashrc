@@ -12,17 +12,45 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias ll='ls -l'
+alias la="ls -laF ${colorflag}"
 alias vi='vim'
 alias d='du -ch --max-depth=1'
 alias sd='sudo du -ch --max-depth=1'
-alias mgmt='ssh management200'
-alias pullgit='git fetch origin && git rebase origin/master'
+alias memused='ps aux | sort -nk +4 | tail'
+alias slave='echo "show slave status \G" | mysql -h'
+alias highmem='ps aux | sort -nk +4 | tail'
+alias loadavg='python -c "import os;print os.getloadavg()[0]"'
+alias bigfiles='sudo du -Sh | sort -h -r | more'
+
+#mysql Aliases
 alias mysql_sockets='egrep ^\s*socket /etc/my.cnf | awk '"'"'{print $3}'"'"
 alias mysql_ports='egrep ^\s*port /etc/my.cnf | awk '"'"'{print $3}'"'"
-alias memused='ps aux | sort -nk +4 | tail'
+
+#list of connections by IP or Host
 alias connbyhost='netstat -a | awk '"'"'{print $5}'"'"' | awk -F. '"'"'{print $1}'"'"' | sort -d | uniq -c | sort -n'
 alias connbyip='netstat -an | awk '"'"'{print $5}'"'"' | awk -F. '"'"'{print $1}'"'"' | sort -d | uniq -c | sort -n'
-alias slave='echo "show slave status \G" | mysql -h'
+
+#git aliases
+alias pullgit='git fetch origin && git rebase origin/master'
+alias gitreset='git reset --hard origin/master'
+
+#movin around
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+#some awks
+alias ONE="awk '{print \$1}'"
+alias TWO="awk '{print \$2}'"
+alias THREE="awk '{print \$3}'"
+alias FOUR="awk '{print \$4}'"
+alias FIVE="awk '{print \$5}'"
+alias SIX="awk '{print\$6}'"
+
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
 # Puppet linting
 alias plint='puppet-lint --with-context --no-80chars-check'
@@ -39,6 +67,7 @@ alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' 
 
 # Decode JSON on the fly. Usage: $ json_decode someJsonFilledFile
 alias json_decode='python -c'\''from simplejson.tool import main; main()'\'''
+
 #grep colors
 export GREP_OPTIONS='--color=auto'
 
@@ -48,6 +77,9 @@ export HISTCONTROL="ignorespace"
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 shopt -s histappend
+
+
+#Functions
 
 mylag() {
         for i in $(egrep '^\s*socket' /etc/my.cnf | awk '{print $3}')
@@ -66,4 +98,10 @@ clishare() {
         fi
 }
 
-
+# Convert epoch to human readable
+#taken from Dave Eddy http://github.com/bahamas10/dotfiles
+epoch() {
+        local num=${1//[^0-9]/}
+        (( ${#num} < 13 )) && num=${num}000
+        node -pe "new Date($num);"
+}
