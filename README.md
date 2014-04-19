@@ -1,4 +1,4 @@
 ConfFiles
 =========
 
-A repository of my conf files
+A repository of my dot Files
