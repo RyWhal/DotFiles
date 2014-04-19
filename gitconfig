@@ -1,0 +1,28 @@
+[user]
+	email = ryanjpwhalen@gmail.com
+	name = RyWhal
+[core]
+        excludesfile = /home/ryan/.gitignore_global
+        editor = vim
+
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = auto
+
+[color "branch"]
+        current = yellow reverse
+        local = yellow
+        remote = green
+
+[color "diff"]
+        meta = yellow bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+
+[alias]
+        diverges = !bash -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
+        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        hard = reset --hard origin/master
