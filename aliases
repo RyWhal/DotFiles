@@ -1,0 +1,69 @@
+# .aliases
+#
+#propmpt stuff
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias ll='ls -l'
+alias la="ls -laF ${colorflag}"
+alias vi='vim'
+
+#misspellings
+alias sl='ls'
+alias gerp='grep'
+alias bi='vim'
+
+#one liners
+alias d='du -ch --max-depth=1'
+alias sd='sudo du -ch --max-depth=1'
+alias memused='ps aux | sort -nk +4 | tail'
+alias slave='echo "show slave status \G" | mysql -h'
+alias highmem='ps aux | sort -nk +4 | tail'
+alias loadavg='python -c "import os;print os.getloadavg()[0]"'
+alias bigfiles='sudo du -Sh | sort -h -r | more'
+
+#mysql Aliases
+alias mysql_sockets='egrep ^\s*socket /etc/my.cnf | awk '"'"'{print $3}'"'"
+alias mysql_ports='egrep ^\s*port /etc/my.cnf | awk '"'"'{print $3}'"'"
+
+#list of connections by IP or Host
+alias connbyhost='netstat -a | awk '"'"'{print $5}'"'"' | awk -F. '"'"'{print $1}'"'"' | sort -d | uniq -c | sort -n'
+alias connbyip='netstat -an | awk '"'"'{print $5}'"'"' | awk -F. '"'"'{print $1}'"'"' | sort -d | uniq -c | sort -n'
+
+#git aliases
+alias pullgit='git fetch origin && git rebase origin/master'
+alias gitreset='git reset --hard origin/master'
+alias gitshipit='git commit -a -m "yolo" && git push'
+
+#movin around
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+#some awks
+alias ONE="awk '{print \$1}'"
+alias TWO="awk '{print \$2}'"
+alias THREE="awk '{print \$3}'"
+alias FOUR="awk '{print \$4}'"
+alias FIVE="awk '{print \$5}'"
+alias SIX="awk '{print\$6}'"
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+# Puppet linting
+alias plint='puppet-lint --with-context --no-80chars-check'
+alias plintcommit='for file in $(git status | grep -e '"'"'modules.*pp$'"'"' | awk '"'"'{print $NF}'"'"'); do echo "$file"; plint "$file"; done'
+
+#some mysql aliases
+alias mycon='mysql -u ryan -p -h'
+alias slave='echo "show slave status \G" | mysql -u ryan -p -h'
+alias plist='echo "show processlist " | mysql -u ryan -p -h'
+alias pflist='echo "show full processlist" | mysql -u ryan -p -h'
+
+# Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
+
+# Decode JSON on the fly. Usage: $ json_decode someJsonFilledFile
+alias json_decode='python -c'\''from simplejson.tool import main; main()'\'''
