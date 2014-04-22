@@ -13,6 +13,11 @@ alias sl='ls'
 alias gerp='grep'
 alias bi='vim'
 
+#shortcuts
+alias p='cd ~/Projects'
+alias www='cd /var/www/'
+alias error='sudo tail -f /var/log/apache2/error.log'
+
 #one liners
 alias d='du -ch --max-depth=1'
 alias sd='sudo du -ch --max-depth=1'
