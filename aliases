@@ -27,6 +27,9 @@ alias highmem='ps aux | sort -nk +4 | tail'
 alias loadavg='python -c "import os;print os.getloadavg()[0]"'
 alias bigfiles='sudo du -Sh | sort -h -r | more'
 
+# List only directories
+alias lsd='ls -lF ${colorflag} | grep --color=never "^d"'
+
 #mysql Aliases
 alias mysql_sockets='egrep ^\s*socket /etc/my.cnf | awk '"'"'{print $3}'"'"
 alias mysql_ports='egrep ^\s*port /etc/my.cnf | awk '"'"'{print $3}'"'"
@@ -41,18 +44,19 @@ alias gitreset='git reset --hard origin/master'
 alias gitshipit='git add .&& git commit -m "yolo" && git push'
 
 #movin around
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ~='cd ~'
 
 #some awks
-alias ONE="awk '{print \$1}'"
-alias TWO="awk '{print \$2}'"
-alias THREE="awk '{print \$3}'"
-alias FOUR="awk '{print \$4}'"
-alias FIVE="awk '{print \$5}'"
-alias SIX="awk '{print\$6}'"
+alias ONE='awk "{print \$1}"'
+alias TWO='awk "{print \$2}"'
+alias THREE='awk "{print \$3}"'
+alias FOUR='awk "{print \$4}"'
+alias FIVE='awk "{print \$5}"'
+alias SIX='awk "{print\$6}"'
 
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
@@ -71,4 +75,10 @@ alias pflist='echo "show full processlist" | mysql -u ryan -p -h'
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
 # Decode JSON on the fly. Usage: $ json_decode someJsonFilledFile
-alias json_decode='python -c'\''from simplejson.tool import main; main()'\'''
+alias json_decode="python -c'\''from simplejson.tool import main; main()'\''"
+
+# IP addresses
+alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload='exec $SHELL -l'
