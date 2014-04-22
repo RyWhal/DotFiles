@@ -33,7 +33,7 @@ alias connbyip='netstat -an | awk '"'"'{print $5}'"'"' | awk -F. '"'"'{print $1}
 #git aliases
 alias pullgit='git fetch origin && git rebase origin/master'
 alias gitreset='git reset --hard origin/master'
-alias gitshipit='git commit -a -m "yolo" && git push'
+alias gitshipit='git add .&& git commit -m "yolo" && git push'
 
 #movin around
 alias ..="cd .."
