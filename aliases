@@ -28,7 +28,7 @@ alias loadavg='python -c "import os;print os.getloadavg()[0]"'
 alias bigfiles='sudo du -Sh | sort -h -r | more'
 
 # List only directories
-alias lsd='ls -lF ${colorflag} | grep --color=never "^d"'
+alias lsd='ls -la | grep "^d"'
 
 #mysql Aliases
 alias mysql_sockets='egrep ^\s*socket /etc/my.cnf | awk '"'"'{print $3}'"'"

@@ -46,3 +46,25 @@ epoch() {
         (( ${#num} < 13 )) && num=${num}000
         node -pe "new Date($num);"
 }
+
+##
+# "I did [mean that]"
+# Re-run the suggested git command
+# Intended to be run as 'idid !!'
+# Stolen from https://gist.github.com/asheepapart/11063860#file-git-sh
+##
+
+idid() {
+	declare last=''
+
+	while [[ $# > 0 ]]; do
+		last="$last $1"
+		shift
+	done
+
+	declare suggestion="$($last 2>&1)"
+
+	declare intended=$(echo "$suggestion" | grep -A 1 'Did you mean' | tail -1)
+
+	git $intended
+}

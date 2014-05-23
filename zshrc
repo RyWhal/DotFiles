@@ -37,5 +37,27 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-eval `ssh-agent -s` 
+##
+## "I did [mean that]"
+## Re-run the suggested git command
+## Intended to be run as 'idid !!'
+#  Grabbed from https://gist.github.com/asheepapart/11063860#file-git-sh
+###
+#
+function idid() {
+declare last=''
+
+while [[ $# > 0 ]]; do
+	last="$last $1"
+	shift
+done
+
+declare suggestion="$($last 2>&1)"
+
+declare intended=$(echo "$suggestion" | grep -A 1 'Did you mean' | tail -1)
+
+git $intended
+}
+
+eval `ssh-agent -s`
 ssh-add
